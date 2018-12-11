@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using PrismUnityTest.Views;
+using Prism.Ioc;
+using Prism.Regions;
 namespace PrismUnityTest
 {
     /// <summary>
@@ -20,9 +22,46 @@ namespace PrismUnityTest
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        IContainerExtension _container;
+        IRegionManager _regionManager;
+
+        ViewA _viewA;
+        ViewB _viewB;
+        IRegion _region;
+        public MainWindow(IRegionManager regionManager, IContainerExtension container)
         {
             InitializeComponent();
+            _regionManager = regionManager;
+            _container = container;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _region.Activate(_viewA);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            _region.Deactivate(_viewA);
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            _region.Activate(_viewB);
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            _region.Deactivate(_viewB);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            _viewA = _container.Resolve<ViewA>();
+            _viewB = _container.Resolve<ViewB>();
+            _region = _regionManager.Regions["ContentInner"];
+            _region.Add(_viewA);
+            _region.Add(_viewB);
         }
     }
 }
