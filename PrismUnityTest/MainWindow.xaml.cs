@@ -25,8 +25,8 @@ namespace PrismUnityTest
         IContainerExtension _container;
         IRegionManager _regionManager;
 
-        ViewA _viewA;
-        ViewB _viewB;
+        UserControl _viewA;
+        UserControl _viewB;
         IRegion _region;
         public MainWindow(IRegionManager regionManager, IContainerExtension container)
         {
@@ -62,6 +62,7 @@ namespace PrismUnityTest
             _region = _regionManager.Regions["ContentInner"];
             _region.Add(_viewA);
             _region.Add(_viewB);
+           
         }
     }
 }

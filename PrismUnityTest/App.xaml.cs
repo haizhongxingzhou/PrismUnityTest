@@ -8,6 +8,7 @@ using System.Windows;
 using Prism.Unity.Ioc;
 using Prism.Unity;
 using Prism.Ioc;
+using Prism.Modularity;
 
 namespace PrismUnityTest
 {
@@ -24,6 +25,10 @@ namespace PrismUnityTest
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
            
+        }
+        protected override IModuleCatalog CreateModuleCatalog()
+        {
+            return new DirectoryModuleCatalog() { ModulePath = @".\Modules" };
         }
     }
 }
